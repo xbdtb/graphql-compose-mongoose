@@ -13,6 +13,7 @@ import {
 } from 'graphql-compose';
 import {
   GraphQLString,
+  GraphQLInt,
   GraphQLFloat,
   GraphQLBoolean,
   GraphQLList,
@@ -22,6 +23,7 @@ import {
 } from 'graphql-compose/lib/graphql';
 
 import GraphQLMongoID from './types/mongoid';
+import GraphQLDecimal from './types/decimal';
 import typeStorage from './typeStorage';
 
 type MongooseFieldT = MongooseSchemaField<any>;
@@ -269,6 +271,9 @@ export function scalarToGraphQL(field: MongooseFieldT): GraphQLOutputType {
     case 'String':
       return GraphQLString;
     case 'Number':
+      if (field.options.integer) {
+        return GraphQLInt;
+      }
       return GraphQLFloat;
     case 'Date':
       return GraphQLDate;
@@ -278,6 +283,8 @@ export function scalarToGraphQL(field: MongooseFieldT): GraphQLOutputType {
       return GraphQLBoolean;
     case 'ObjectID':
       return GraphQLMongoID;
+    case 'Decimal128':
+      return GraphQLDecimal;
     default:
       return GraphQLGeneric;
   }
