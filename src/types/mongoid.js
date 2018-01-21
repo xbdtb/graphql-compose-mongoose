@@ -6,7 +6,7 @@ import { GraphQLScalarType, Kind } from 'graphql-compose/lib/graphql';
 const ObjectId = mongoose.Types.ObjectId;
 
 const GraphQLMongoID = new GraphQLScalarType({
-  name: 'MongoID',
+  name: 'ObjectID',
   description:
     'The `ID` scalar type represents a unique MongoDB identifier in collection. ' +
     'MongoDB by default use 12-byte ObjectId value ' +
